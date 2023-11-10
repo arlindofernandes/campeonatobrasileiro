@@ -36,7 +36,6 @@ public class TimeRestController {
     //@ApiOperation(value = "Cadastrar os dados de um time")
     @PostMapping
     public ResponseEntity<TimeDTO> cadastrarTime(@Validated @RequestBody  TimeDTO time) throws Exception {
-        timeService.cadastrarTime(time);
         return ResponseEntity.ok().body(timeService.cadastrarTime(time));
         //
     }

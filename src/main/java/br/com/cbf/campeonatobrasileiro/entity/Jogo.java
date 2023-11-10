@@ -8,6 +8,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 public class Jogo {
@@ -22,10 +24,11 @@ public class Jogo {
     @ManyToOne
     @JoinColumn(name = "time2")
     private Time time2;
-
     private Integer golsTime1;
     private Integer golsTime2;
     private Integer publicoPagante;
-    private String uuid;
+    private Boolean encerrado;
+    private LocalDateTime data;
+    private Integer rodada;
     
 }

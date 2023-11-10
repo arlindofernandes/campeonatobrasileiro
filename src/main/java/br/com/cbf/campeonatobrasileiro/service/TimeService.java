@@ -1,12 +1,15 @@
 package br.com.cbf.campeonatobrasileiro.service;
 
+import static java.util.stream.Collectors.toList;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import br.com.cbf.campeonatobrasileiro.dto.TimeDTO;
 import br.com.cbf.campeonatobrasileiro.entity.Time;
 import br.com.cbf.campeonatobrasileiro.repository.TimeRepository;
-import static java.util.stream.Collectors.toList;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 
 @Service
@@ -14,6 +17,13 @@ public class TimeService {
     @Autowired
     private TimeRepository repository;
 
+
+    public List<TimeDTO> listarTimes(){
+        return  repository.findAll().stream().map(entity-> toDto(entity)).collect(toList());
+    }
+    public List<Time> findAll() {
+        return repository.findAll();
+    }
     public TimeDTO cadastrarTime(TimeDTO time) throws Exception {
         Time entity =toEntity(time);
         if (time.getId()==null){
@@ -24,10 +34,7 @@ public class TimeService {
         }
 
     }
-    public List<TimeDTO> listarTimes(){
-         return  repository.findAll().stream().map(entity-> toDto(entity)).collect(toList());
-    }
-     private TimeDTO toDto(Time entity) {
+    public TimeDTO toDto(Time entity) {
         TimeDTO dto = new TimeDTO();
         dto.setId(entity.getId());
         dto.setNome(entity.getNome());
@@ -49,4 +56,6 @@ public class TimeService {
         time.setEstadio(timeDTO.getEstadio());
         return time;
     }
+
+
 }
